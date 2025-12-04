@@ -1,7 +1,7 @@
 from asyncio.log import logger
 import logging
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 
 class product_ID_interval:
@@ -17,7 +17,6 @@ class product_ID_interval:
     def _get_last_ID(self) -> int:
         return self.last_ID
 
-    # TODO throw out numbers of odd length
     def _find_invalid_IDS(self) -> int:
         invalid_IDs: list[int] = []
         first_ID = self.first_ID
@@ -65,7 +64,6 @@ def main() -> None:
 
         invalid_IDs = interval._find_invalid_IDS()
         total_of_invalid_IDs = total_of_invalid_IDs + invalid_IDs
-        print(total_of_invalid_IDs)
 
         logger.info("total sum of invalid IDs %i", total_of_invalid_IDs)
 
