@@ -1,7 +1,7 @@
 from asyncio.log import logger
 import logging
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 
 
 class batteryBank:
@@ -18,11 +18,13 @@ class batteryBank:
         logger.debug("bank: %s", bank)
         for i in range(1, num_batteries_needed+1):
             updated_bank = bank[index+1:len(bank)-num_batteries_needed+i]
+            logger.debug("updated bank %s", updated_bank)
             highest_digit = highest_digit_in(updated_bank)
             highest_joltage[i-1] = highest_digit
-            index = updated_bank.index(str(highest_digit))
+            logger.debug("joltage list so far %s", highest_joltage)
+            index = index + 1 + updated_bank.index(str(highest_digit))
         num_highest_joltage = int("".join(str(x) for x in highest_joltage))
-        logger.debug("highest joltage: %i", highest_joltage)
+        logger.debug("highest joltage: %i", num_highest_joltage)
         return num_highest_joltage
 
 
@@ -38,7 +40,7 @@ def main() -> None:
         for line in file.readlines():
             bank = batteryBank(line.rstrip())
             highest_joltage = bank._get_highest_joltage()
-            logger.info("highest joltage in bank: %i", highest_joltage)
+            # logger.info("highest joltage in bank: %i", highest_joltage)
             total_output_joltage = total_output_joltage + highest_joltage
 
     logger.info("total output joltage %i", total_output_joltage)
