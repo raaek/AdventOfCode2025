@@ -14,10 +14,10 @@ class batteryBank:
         bank = self.bank
         num_batteries_needed = self.num_batteries_needed
         highest_joltage: list = [None] * num_batteries_needed
-        index: int = -1
+        index: int = 0
         logger.debug("bank: %s", bank)
         for i in range(1, num_batteries_needed+1):
-            updated_bank = bank[index+1:len(bank)-num_batteries_needed+i]
+            updated_bank = bank[index:len(bank)-num_batteries_needed+i]
             logger.debug("updated bank %s", updated_bank)
             highest_digit = highest_digit_in(updated_bank)
             highest_joltage[i-1] = highest_digit
